@@ -21,11 +21,13 @@ RUN apt-get -y update --fix-missing && \
 RUN wget --no-check-certificate https://launchpad.net/plone/5.0/5.0/+download/Plone-5.0-UnifiedInstaller.tgz
 
 RUN tar -xf Plone-5.0-UnifiedInstaller.tgz && \
-    # Delete .tgz
-    rm -rf Plone-5.0-UnifiedInstaller.tgz && \
     cd Plone-5.0-UnifiedInstaller && \
     # TODO: We might want to remove the --password here
-    sudo ./install.sh --target=/usr/local/Plone --password=adminpassword --build-python zeo
+    sudo ./install.sh --target=/usr/local/Plone --password=adminpassword --build-python zeo && \
+    cd ../ && \
+    # Delete .tgz
+    rm -rf Plone-5.0-UnifiedInstaller.tgz && \
+    rm -rf Plone-5.0-UnifiedInstaller
 # use supervisor to start Plone with the server.
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
