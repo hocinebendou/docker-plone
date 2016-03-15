@@ -1,20 +1,45 @@
-# docker-plone
-Plone on Docker
+# docker-plone-bika.lims
+Bika.lims on Docker
 
-## Install Python
+## Without nginx proxying
+
+**Build and run `docker-plone-bika.lims` using `docker`:**
 ```
-1. Rename Dockerfile_python to Dockerfile
-2. docker build -t user/python .
-3. Rename this Dockerfile to it's initial name
-```
-## Building container
-```
-$ docker build -t user/docker-plone .
+$ docker build -t thobalose/docker-plone-bikalims .
+$ docker run -d -p 8080:8080 --name plone thobalose/docker-plone-bikalims
 ```
 
-## Running container
+**Access docker-plone-bika.lims at:** 
+
+  * [localhost:8080](http://localhost:8080)
+
+**Add a new Plone site**
+
+  * Select "Add Plone Site", ensure that the Bika LIMS option is checked, then submit the form.
+
+*Start working with Bika LIMS...*
+
+## With nginx proxying
+
+
+![Proxying](http://docs.plone.org/_images/zope_plus_ws.png "Proxying Plone")
+
+
+
+**Build and run `docker-plone-bika.lims` using `docker-compose`:**
 ```
-$ docker run -d -p 8080:8080 --name plone user/docker-plone
+$ pip install docker-compose
+$ docker-compose build 
+$ docker-compose up
 ```
 
-**Still to be updated...**
+**Access docker-plone-bika.lims at:** 
+
+  * [localhost:8080](http://localhost:8080)
+
+*For now, one has first install bika.lims from `:8080` for NGINX `proxy_pass` to work*
+  * see above `Add new Plone site`
+
+**Upon installation, one can access bikalims from [http://localhost](http://localhost)**
+
+*Still to be updated...*
