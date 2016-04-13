@@ -1,13 +1,34 @@
-nginx:
-  restart: always
-  build: ./nginx/
-  ports:
-    - "80:80"
-  links:
-    - bika
+version: '2'
 
-bika:
-  restart: always
-  build: .
-  ports:
-    - "8080:8080"
+services:
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+    links:
+      - bika
+    container_name: nginx
+
+  plone:
+    build: ./plone/
+    image: plone_one
+    links:
+      - python
+    container_name: plone_one_con
+
+  bika:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - plone
+    container_name: bika
+  
+  python:
+    build: ./python/
+    image: hocine_python
+    container_name: python
+
+
